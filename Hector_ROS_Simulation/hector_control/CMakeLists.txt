@@ -45,8 +45,11 @@ add_subdirectory(third_party/qpOASES)
 
 file(GLOB_RECURSE SRC_LIST
 "src/*/*.cpp"
-"src/*/*.h"
+# "src/*/*.h"
+"include/*/*.h"
 "ConvexMPC/*.cpp"
+"ArmControl/*.cpp"
+"ArmControl/*.h"
 )
 add_executable(hector_ctrl src/main.cpp  ${SRC_LIST} )
 target_link_libraries(hector_ctrl ${catkin_LIBRARIES} qpOASES -pthread lcm)

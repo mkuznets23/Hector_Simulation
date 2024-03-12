@@ -3,7 +3,8 @@
 FSMState_MPC::FSMState_MPC(ControlFSMData *data)
                  :FSMState(data, FSMStateName::MPC, "mpc"),
                   Cmpc(0.001, 40),
-                  gaitNum(2) {}
+                  gaitNum(1),
+                  armCtrl() {}
 
 template<typename T0, typename T1, typename T2>
 T1 invNormalize(const T0 value, const T1 min, const T2 max, const double minLim = -1, const double maxLim = 1){
@@ -52,6 +53,16 @@ void FSMState_MPC::run()
     }
 
     _data->_legController->updateCommand(_data->_lowCmd);  
+
+    //Arm Controller
+    if (counter == 2000){
+        armCtrl.startPath(counter);
+    }    
+    armCtrl.checkCounter(counter);
+    armCtrl.run(*_data);
+
+    _data->_armLowLevel->updateCommand(_data->_lowCmd);  
+
     counter++;
 }
 

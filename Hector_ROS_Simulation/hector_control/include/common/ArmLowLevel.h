@@ -9,8 +9,11 @@ struct ArmControlData{
     //Also contains index variable for path execution tracking
 
 struct ArmControlCommand{
-    ArmControlCommand(){zero();}
+    ArmControlCommand(){}
     void zero();
+
+    // ArmControlCommand(){zero();}
+    
 
     Vec3<double> qDes;
     Vec3<double> kpJoint;
@@ -20,9 +23,9 @@ struct ArmControlCommand{
 class ArmLowLevel{
     public:
         ArmLowLevel(){
-            // for(int i = 0; i < 2; i++){
-            //     armCommand[i].zero();
-            // }
+            for(int i = 0; i < 2; i++){
+                armCommand[i].zero();
+            }
         };
         ArmControlData armData[2];
         ArmControlCommand armCommand[2];

@@ -36,6 +36,7 @@ int main(int argc, char ** argv)
     LowLevelController* legController = new LowLevelController(biped);
     LowlevelCmd* cmd = new LowlevelCmd();
     LowlevelState* state = new LowlevelState();
+    ArmLowLevel* armLowLevel = new ArmLowLevel();
 
     std::cout << "start setup " << std::endl;
     StateEstimate stateEstimate;
@@ -54,6 +55,7 @@ int main(int argc, char ** argv)
     _controlData->_biped = &biped;
     _controlData->_stateEstimator = stateEstimator;
     _controlData->_legController = legController;
+    _controlData->_armLowLevel = armLowLevel;
     _controlData->_desiredStateCommand = desiredStateCommand;
     _controlData->_interface = ioInter;
     _controlData->_lowCmd = cmd;

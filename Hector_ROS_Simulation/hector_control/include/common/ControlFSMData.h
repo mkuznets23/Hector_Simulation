@@ -3,6 +3,7 @@
 
 #include "DesiredCommand.h"
 #include "LowLevelController.h"
+#include "ArmLowLevel.h"
 #include "Biped.h"
 #include "../messages/LowLevelCmd.h"
 #include "../messages/LowlevelState.h"
@@ -14,6 +15,7 @@ struct ControlFSMData {
   Biped *_biped;
   StateEstimatorContainer *_stateEstimator;
   LowLevelController *_legController;
+  ArmLowLevel *_armLowLevel;
   DesiredStateCommand *_desiredStateCommand;
   IOInterface *_interface;
   LowlevelCmd *_lowCmd;

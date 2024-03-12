@@ -2,7 +2,6 @@
 /*
 This file will use commands to update arm motors
 */
-
 void ArmControlCommand::zero(){
     qDes = Vec3<double>::Zero();
     kpJoint = Vec3<double>::Zero();
