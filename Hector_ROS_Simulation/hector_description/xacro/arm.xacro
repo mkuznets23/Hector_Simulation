@@ -86,6 +86,12 @@
             <axis xyz="0 1 0"/>
             <dynamics damping="${damping}" friction="${friction}"/>
             <limit effort="${shoulder_torque_max}" velocity="${shoulder_velocity_max}" lower="${shoulder_min}" upper="${shoulder_max}"/>
+            <!--<xacro:if value="${(mirror_dae == True)}">
+                <limit effort="${shoulder_torque_max}" velocity="${shoulder_velocity_max}" lower="${shoulder_min}" upper="${shoulder_max}"/>
+            </xacro:if>
+            <xacro:if value="${(mirror_dae == False)}">
+                <limit effort="${shoulder_torque_max}" velocity="${shoulder_velocity_max}" lower="${shoulder_max}" upper="${shoulder_min}"/>
+            </xacro:if>  -->
         </joint>
         <link name="${name}_shoulder">
             <visual>

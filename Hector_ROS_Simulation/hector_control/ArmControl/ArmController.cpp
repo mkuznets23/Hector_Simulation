@@ -50,8 +50,8 @@ JointPlanElement plan2 = {
 //     {0,0,-0.5,3.14}
 // };
 
-std::array<JointPlanElement,4> jointPlan = {plan0,plan1,plan2};
-// std::array<JointPlanElement,2> jointPlan = {plan0,plan1};
+// std::array<JointPlanElement,3> jointPlan = {plan0,plan1,plan2};
+std::array<JointPlanElement,2> jointPlan = {plan0,plan1};
 
 
 // std::map<int, int> testPlanMap;
