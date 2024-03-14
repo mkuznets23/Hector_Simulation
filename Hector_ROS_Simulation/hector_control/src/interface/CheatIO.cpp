@@ -91,8 +91,8 @@ void CheatIO::initSend(){
     _servo_pub[9] = _nm.advertise<unitree_legged_msgs::MotorCmd>( "/" + _robot_name + "_gazebo/R_toe_controller/command", 1);
   
     _servo_pub[10] = _nm.advertise<unitree_legged_msgs::MotorCmd>( "/" + _robot_name + "_gazebo/L_twist_controller/command", 1);
-    _servo_pub[11] = _nm.advertise<unitree_legged_msgs::MotorCmd>( "/" + _robot_name + "_gazebo/L_roll_controller/command", 1);
-    _servo_pub[12] = _nm.advertise<unitree_legged_msgs::MotorCmd>( "/" + _robot_name + "_gazebo/L_shoulder_controller/command", 1);
+    _servo_pub[11] = _nm.advertise<unitree_legged_msgs::MotorCmd>( "/" + _robot_name + "_gazebo/L_shoulder_controller/command", 1);
+    _servo_pub[12] = _nm.advertise<unitree_legged_msgs::MotorCmd>( "/" + _robot_name + "_gazebo/L_roll_controller/command", 1);
     _servo_pub[13] = _nm.advertise<unitree_legged_msgs::MotorCmd>( "/" + _robot_name + "_gazebo/L_elbow_controller/command", 1);
   
     _servo_pub[14] = _nm.advertise<unitree_legged_msgs::MotorCmd>( "/" + _robot_name + "_gazebo/R_twist_controller/command", 1);
@@ -115,8 +115,8 @@ void CheatIO::initRecv(){
     _servo_sub[9] = _nm.subscribe( "/" + _robot_name + "_gazebo/R_toe_controller/state", 1, &CheatIO::RtoeCallback, this);
 
     _servo_sub[10] = _nm.subscribe( "/" + _robot_name + "_gazebo/L_twist_controller/state", 1, &CheatIO::L_twist_Callback, this);
-    _servo_sub[11] = _nm.subscribe( "/" + _robot_name + "_gazebo/L_roll_controller/state", 1, &CheatIO::L_roll_Callback, this);
-    _servo_sub[12] = _nm.subscribe( "/" + _robot_name + "_gazebo/L_shoulder_controller/state", 1, &CheatIO::L_shoulder_Callback, this);
+    _servo_sub[11] = _nm.subscribe( "/" + _robot_name + "_gazebo/L_shoulder_controller/state", 1, &CheatIO::L_shoulder_Callback, this);
+    _servo_sub[12] = _nm.subscribe( "/" + _robot_name + "_gazebo/L_roll_controller/state", 1, &CheatIO::L_roll_Callback, this);
     _servo_sub[13] = _nm.subscribe( "/" + _robot_name + "_gazebo/L_elbow_controller/state", 1, &CheatIO::L_elbow_Callback, this);
     
     _servo_sub[14] = _nm.subscribe( "/" + _robot_name + "_gazebo/R_twist_controller/state", 1, &CheatIO::R_twist_Callback, this);

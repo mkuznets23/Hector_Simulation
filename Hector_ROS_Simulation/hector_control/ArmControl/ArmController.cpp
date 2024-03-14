@@ -28,8 +28,8 @@ JointPlanElement plan0 = {
 
 JointPlanElement plan1 = {
     1000,
-    {0,0.5,0,0},
-    {0,0.5,0,0}
+    {0,0.5,0.5,0},//left
+    {0,0.5,0.5,0}//right
 };
 
 // JointPlanElement plan1 = {
@@ -40,8 +40,8 @@ JointPlanElement plan1 = {
 
 JointPlanElement plan2 = {
     2000,
-    {0,0.5,0,3.14},
-    {0,0.5,0,3.14}
+    {0,-0.5,0.5,3.14},//left
+    {0,-0.5,0.5,3.14}//right
 };
 
 // JointPlanElement plan3 = {
@@ -50,8 +50,8 @@ JointPlanElement plan2 = {
 //     {0,0,-0.5,3.14}
 // };
 
-// std::array<JointPlanElement,3> jointPlan = {plan0,plan1,plan2};
-std::array<JointPlanElement,2> jointPlan = {plan0,plan1};
+std::array<JointPlanElement,3> jointPlan = {plan0,plan1,plan2};
+// std::array<JointPlanElement,2> jointPlan = {plan0,plan1};
 
 
 // std::map<int, int> testPlanMap;
