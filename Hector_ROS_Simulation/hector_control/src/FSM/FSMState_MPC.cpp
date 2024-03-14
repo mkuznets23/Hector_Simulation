@@ -55,7 +55,7 @@ void FSMState_MPC::run()
     _data->_legController->updateCommand(_data->_lowCmd);  
 
     //Arm Controller
-    if (counter == 2000){
+    if (counter == 0){
         armCtrl.startPath(counter);
     }    
     armCtrl.checkCounter(counter);

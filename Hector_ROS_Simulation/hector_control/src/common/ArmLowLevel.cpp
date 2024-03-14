@@ -14,10 +14,10 @@ void ArmLowLevel::updateCommand(LowlevelCmd* cmd){
     // cmd->motorCmd[11].q = armCommand[1].qDes
 
     // cmd->motorCmd[11].q = -0.5; 
-    cmd->motorCmd[10].q = armCommand[0].qDes[0]; //right twist
+    cmd->motorCmd[10].q = -armCommand[0].qDes[0]; //right twist
     cmd->motorCmd[10].Kp = 10;
     cmd->motorCmd[10].Kd = 1;
-    cmd->motorCmd[11].q = armCommand[0].qDes[1]; //right shoulder 
+    cmd->motorCmd[11].q = -armCommand[0].qDes[1]; //right shoulder 
     cmd->motorCmd[11].Kp = 10;
     cmd->motorCmd[11].Kd = 1;
     cmd->motorCmd[12].q = -armCommand[0].qDes[2]; //right roll
@@ -30,7 +30,7 @@ void ArmLowLevel::updateCommand(LowlevelCmd* cmd){
     cmd->motorCmd[14].q = armCommand[1].qDes[0]; //left twist
     cmd->motorCmd[14].Kp = 10;
     cmd->motorCmd[14].Kd = 1;
-    cmd->motorCmd[15].q = armCommand[1].qDes[1]; //left shoulder
+    cmd->motorCmd[15].q = -armCommand[1].qDes[1]; //left shoulder
     cmd->motorCmd[15].Kp = 10;
     cmd->motorCmd[15].Kd = 1;
     cmd->motorCmd[16].q = armCommand[1].qDes[2]; //left roll

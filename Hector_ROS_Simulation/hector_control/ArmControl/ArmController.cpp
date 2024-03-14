@@ -25,34 +25,44 @@ JointPlanElement plan0 = {
     {0,0,0,0},
     {0,0,0,0}
 };
-
 JointPlanElement plan1 = {
-    1000,
-    {0,0.5,0.5,0},//left
-    {0,0.5,0.5,0}//right
+    500,
+    {0.5,0,0,0},//left
+    {0.5,0,0,0}//right
 };
+JointPlanElement plan2 = {
+    1000,
+    {-0.5,0,0,0},//left
+    {-0.5,0,0,0}//right
+};
+JointPlanElement plan3 = {
+    1500,
+    {0,-0.5,0,0},//left
+    {0,-0.5,0,0}//right
+};
+JointPlanElement plan4 = {
+    2000,
+    {0,1,0.5,0},//left
+    {0,1,0.5,0}//right
+};
+JointPlanElement plan5 = {
+    2500,
+    {0,1,0.5,3.14},//left
+    {0,1,0.5,3.14}//right
+};
+std::array<JointPlanElement,6> jointPlan = {plan0,plan1,plan2,plan3,plan4,plan5};
 
+// JointPlanElement plan0 = {
+//     0,
+//     {0,3.14/2,0,0},
+//     {0,3.14/2,0,0}
+// };
 // JointPlanElement plan1 = {
 //     1000,
-//     {0,0,0.5,0},
-//     {0,0,0.5,0}
+//     {0,3.14,0,3.14},//left
+//     {0,3.14,0,3.14}//right
 // };
-
-JointPlanElement plan2 = {
-    2000,
-    {0,-0.5,0.5,3.14},//left
-    {0,-0.5,0.5,3.14}//right
-};
-
-// JointPlanElement plan3 = {
-//     2000,
-//    {0,0,-0.5,3.14},
-//     {0,0,-0.5,3.14}
-// };
-
-std::array<JointPlanElement,3> jointPlan = {plan0,plan1,plan2};
 // std::array<JointPlanElement,2> jointPlan = {plan0,plan1};
-
 
 // std::map<int, int> testPlanMap;
 //for now testPlan is fine, but later path should be a class instance field

@@ -76,22 +76,17 @@
 
         <joint name="${name}_shoulder_joint" type="revolute">
             <xacro:if value="${(mirror_dae == True)}">
-            <origin rpy="0 0 0" xyz="0.0 0.05 0.0"/>
+            <origin rpy="0 0 0" xyz="0.0 0.045 0.0"/>
             </xacro:if>
             <xacro:if value="${(mirror_dae == False)}">
-            <origin rpy="0 0 0" xyz="0.0 -0.05 0.0"/>
+            <origin rpy="0 0 0" xyz="0.0 -0.045 0.0"/>
             </xacro:if>                
             <parent link="${name}_twist"/>
             <child link="${name}_shoulder"/>
             <axis xyz="0 1 0"/>
             <dynamics damping="${damping}" friction="${friction}"/>
             <limit effort="${shoulder_torque_max}" velocity="${shoulder_velocity_max}" lower="${shoulder_min}" upper="${shoulder_max}"/>
-            <!--<xacro:if value="${(mirror_dae == True)}">
-                <limit effort="${shoulder_torque_max}" velocity="${shoulder_velocity_max}" lower="${shoulder_min}" upper="${shoulder_max}"/>
-            </xacro:if>
-            <xacro:if value="${(mirror_dae == False)}">
-                <limit effort="${shoulder_torque_max}" velocity="${shoulder_velocity_max}" lower="${shoulder_max}" upper="${shoulder_min}"/>
-            </xacro:if>  -->
+
         </joint>
         <link name="${name}_shoulder">
             <visual>
@@ -129,10 +124,10 @@
 
         <joint name="${name}_roll_joint" type="revolute">
             <xacro:if value="${(mirror_dae == True)}">
-            <origin rpy="0 0 0" xyz="0.0 0.05 0.0"/>
+            <origin rpy="0 0 0" xyz="-0.0135 0.045 0.0"/>
             </xacro:if>
             <xacro:if value="${(mirror_dae == False)}">
-            <origin rpy="0 0 0" xyz="0.0 -0.05 0.0"/>
+            <origin rpy="0 0 0" xyz="-0.0135 -0.045 0.0"/>
             </xacro:if>                
             <parent link="${name}_shoulder"/>
             <child link="${name}_roll"/>
@@ -181,7 +176,7 @@
         </link>
 
         <joint name="${name}_elbow_joint" type="revolute">
-            <origin rpy="0 -1.5 0" xyz="0.0 0.0 -0.205"/>
+            <origin rpy="0 -1.5 0" xyz="${elbow_offset_x} 0.0 -0.20"/>
             <parent link="${name}_roll"/>
             <child link="${name}_elbow"/>
             <axis xyz="0 1 0"/>
