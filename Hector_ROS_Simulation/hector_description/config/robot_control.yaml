@@ -61,6 +61,11 @@ hector_gazebo:
         type: unitree_legged_control/UnitreeJointController
         joint: L_twist_joint
         pid: {p: 100.0, i: 0.0, d: 5.0}
+
+    L_roll_controller:
+        type: unitree_legged_control/UnitreeJointController
+        joint: L_roll_joint
+        pid: {p: 100.0, i: 0.0, d: 5.0}
     
     L_shoulder_controller:
         type: unitree_legged_control/UnitreeJointController
@@ -77,7 +82,12 @@ hector_gazebo:
         type: unitree_legged_control/UnitreeJointController
         joint: R_twist_joint
         pid: {p: 100.0, i: 0.0, d: 5.0}
-    
+
+    R_roll_controller:
+        type: unitree_legged_control/UnitreeJointController
+        joint: R_roll_joint
+        pid: {p: 100.0, i: 0.0, d: 5.0}
+
     R_shoulder_controller:
         type: unitree_legged_control/UnitreeJointController
         joint: R_shoulder_joint

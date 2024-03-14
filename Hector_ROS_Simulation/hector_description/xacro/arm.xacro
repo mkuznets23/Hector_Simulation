@@ -27,14 +27,30 @@
             </xacro:if>  
         </joint>
         <link name="${name}_twist">
-            <visual>
+            <!--
             <origin rpy="0 ${-PI/2.0} 0" xyz="0 0 0"/>
             <geometry>
                 <mesh filename="package://hector_description/meshes/hip_a1.dae" scale="1 1 1"/>
             </geometry>
+             -->
+            <visual>
+            <origin rpy="0 0 0" xyz="0 0 ${twist_offset_z}"/>
+
+            <xacro:if value="${(mirror_dae == True)}">
+            <geometry>
+                <mesh filename="package://hector_description/meshes/hector_arm/ShoulderYaw_L.stl" scale="1 1 1"/>
+            </geometry>
+            </xacro:if>
+
+            <xacro:if value="${(mirror_dae == False)}">
+            <geometry>
+                <mesh filename="package://hector_description/meshes/hector_arm/ShoulderYaw_R.stl" scale="1 1 1"/>
+            </geometry>
+            </xacro:if>
+
             <material name="orange"/>
             </visual>
-            
+
             <collision>
                 <origin rpy="${PI/2.0} 0 0" xyz="0 ${-(twist_length/2.0-twist_offset)*mirror} 0"/>
                 <geometry>
@@ -58,6 +74,53 @@
             </inertial> -->
         </link>
 
+        <joint name="${name}_roll_joint" type="revolute">
+            <xacro:if value="${(mirror_dae == True)}">
+            <origin rpy="0 0 0" xyz="0.0 0.05 0.0"/>
+            </xacro:if>
+            <xacro:if value="${(mirror_dae == False)}">
+            <origin rpy="0 0 0" xyz="0.0 -0.05 0.0"/>
+            </xacro:if>                
+            <parent link="${name}_twist"/>
+            <child link="${name}_roll"/>
+            <axis xyz="0 1 0"/>
+            <dynamics damping="${damping}" friction="${friction}"/>
+            <limit effort="${shoulder_torque_max}" velocity="${shoulder_velocity_max}" lower="${shoulder_min}" upper="${shoulder_max}"/>
+        </joint>
+        <link name="${name}_roll">
+            <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            
+            <xacro:if value="${(mirror_dae == True)}">
+            <geometry>
+                <mesh filename="package://hector_description/meshes/hector_arm/ShoulderPitch_L.stl" scale="1 1 1"/>
+            </geometry>
+            </xacro:if>
+            
+            <xacro:if value="${(mirror_dae == False)}">
+            <geometry>
+                <mesh filename="package://hector_description/meshes/hector_arm/ShoulderPitch_R.stl" scale="1 1 1"/>
+            </geometry>     
+            </xacro:if> 
+            
+            <material name="orange"/>
+            </visual>
+           <collision>
+                <origin rpy="0 ${PI/2.0} 0" xyz="0 0 ${-shoulder_length/2.0}"/>
+                <geometry>
+                    <box size="${shoulder_length} ${shoulder_width} ${shoulder_height}"/>
+                </geometry>      
+            </collision>
+            <inertial>
+                <origin rpy="0 0 0" xyz="${shoulder_com_x} ${shoulder_com_y*mirror} ${shoulder_com_z}"/>
+                <mass value="${shoulder_mass}"/>
+                <inertia
+                    ixx="${shoulder_ixx}" ixy="${shoulder_ixy*mirror}" ixz="${shoulder_ixz}"
+                    iyy="${shoulder_iyy}" iyz="${shoulder_iyz*mirror}"
+                    izz="${shoulder_izz}"/>       
+            </inertial>
+        </link>
+
         <joint name="${name}_shoulder_joint" type="revolute">
             <xacro:if value="${(mirror_dae == True)}">
             <origin rpy="0 0 0" xyz="0.0 0.0723 0.0"/>
@@ -65,7 +128,7 @@
             <xacro:if value="${(mirror_dae == False)}">
             <origin rpy="0 0 0" xyz="0.0 -0.0723 0.0"/>
             </xacro:if>                
-            <parent link="${name}_twist"/>
+            <parent link="${name}_roll"/>
             <child link="${name}_shoulder"/>
             <axis xyz="0 1 0"/>
             <dynamics damping="${damping}" friction="${friction}"/>
@@ -77,13 +140,15 @@
             
             <xacro:if value="${(mirror_dae == True)}">
             <geometry>
-                <mesh filename="package://hector_description/meshes/thigh_a1.dae" scale="1 1 1"/>
+                <!--mesh filename="package://hector_description/meshes/thigh_a1.dae" scale="1 1 1"/-->
+                <mesh filename="package://hector_description/meshes/hector_arm/UpperArmRoll_L.stl" scale="1 1 1"/>
             </geometry>
             </xacro:if>
             
             <xacro:if value="${(mirror_dae == False)}">
             <geometry>
-                <mesh filename="package://hector_description/meshes/thigh_mirror_a1.dae" scale="1 1 1"/>
+                <!--mesh filename="package://hector_description/meshes/thigh_mirror_a1.dae" scale="1 1 1"/-->
+                <mesh filename="package://hector_description/meshes/hector_arm/UpperArmRoll_R.stl" scale="1 1 1"/>
             </geometry>     
             </xacro:if> 
             
@@ -117,7 +182,8 @@
             <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="package://hector_description/meshes/calf_a1.dae" scale="1 1 1"/>
+                <!--mesh filename="package://hector_description/meshes/calf_a1.dae" scale="1 1 1"/-->
+                <mesh filename="package://hector_description/meshes/hector_arm/ForeArmPitch.stl" scale="1 1 1"/>
             </geometry>
             <material name="orange"/>
             </visual>

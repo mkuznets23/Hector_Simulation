@@ -239,6 +239,13 @@ void CheatIO::L_twist_Callback(const unitree_legged_msgs::MotorState& msg){
     _highState.motorState[10].dq = msg.dq;
     _highState.motorState[10].tauEst = msg.tauEst;
 }
+// void CheatIO::L_roll_Callback(const unitree_legged_msgs::MotorState& msg){
+//     _highState.motorState[13].mode = msg.mode;
+//     _highState.motorState[13].q = msg.q;
+//     _highState.motorState[13].dq = msg.dq;
+//     _highState.motorState[13].tauEst = msg.tauEst; 
+
+// }
 void CheatIO::L_shoulder_Callback(const unitree_legged_msgs::MotorState& msg){
 
     _highState.motorState[11].mode = msg.mode;
@@ -261,6 +268,13 @@ void CheatIO::R_twist_Callback(const unitree_legged_msgs::MotorState& msg){
     _highState.motorState[13].tauEst = msg.tauEst; 
 
 }
+// void CheatIO::R_roll_Callback(const unitree_legged_msgs::MotorState& msg){
+//     _highState.motorState[13].mode = msg.mode;
+//     _highState.motorState[13].q = msg.q;
+//     _highState.motorState[13].dq = msg.dq;
+//     _highState.motorState[13].tauEst = msg.tauEst; 
+
+// }
 void CheatIO::R_shoulder_Callback(const unitree_legged_msgs::MotorState& msg){
     _highState.motorState[14].mode = msg.mode;
     _highState.motorState[14].q = msg.q;

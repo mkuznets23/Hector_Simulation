@@ -48,9 +48,11 @@ class CheatIO : public IOInterface
         void RtoeCallback(const unitree_legged_msgs::MotorState& msg);
 
         void L_twist_Callback(const unitree_legged_msgs::MotorState& msg);
+        // void L_roll_Callback(const unitree_legged_msgs::MotorState& msg);
         void L_shoulder_Callback(const unitree_legged_msgs::MotorState& msg);
         void L_elbow_Callback(const unitree_legged_msgs::MotorState& msg);
         void R_twist_Callback(const unitree_legged_msgs::MotorState& msg);
+        // void R_roll_Callback(const unitree_legged_msgs::MotorState& msg);
         void R_shoulder_Callback(const unitree_legged_msgs::MotorState& msg);
         void R_elbow_Callback(const unitree_legged_msgs::MotorState& msg); 
 
