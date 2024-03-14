@@ -4,8 +4,8 @@
 
 struct JointPlanElement{
     int time;
-    Vec3<double> q_left;
-    Vec3<double> q_right;
+    Vec4<double> q_left;
+    Vec4<double> q_right;
     // Twist, Shoulder, Elbow
 };
 

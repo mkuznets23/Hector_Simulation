@@ -4,7 +4,7 @@
 
 
 struct ArmControlData{
-    Vec3<double> q;
+    Vec4<double> q;
 }; // represents state of the arms (actual positions of arms, not just motor commands)
     //Also contains index variable for path execution tracking
 
@@ -15,9 +15,9 @@ struct ArmControlCommand{
     // ArmControlCommand(){zero();}
     
 
-    Vec3<double> qDes;
-    Vec3<double> kpJoint;
-    Vec3<double> kdJoint;
+    Vec4<double> qDes;
+    Vec4<double> kpJoint;
+    Vec4<double> kdJoint;
 }; // command to give motors
 
 class ArmLowLevel{

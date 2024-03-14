@@ -74,7 +74,7 @@
             </inertial> -->
         </link>
 
-        <joint name="${name}_roll_joint" type="revolute">
+        <joint name="${name}_shoulder_joint" type="revolute">
             <xacro:if value="${(mirror_dae == True)}">
             <origin rpy="0 0 0" xyz="0.0 0.05 0.0"/>
             </xacro:if>
@@ -82,12 +82,12 @@
             <origin rpy="0 0 0" xyz="0.0 -0.05 0.0"/>
             </xacro:if>                
             <parent link="${name}_twist"/>
-            <child link="${name}_roll"/>
+            <child link="${name}_shoulder"/>
             <axis xyz="0 1 0"/>
             <dynamics damping="${damping}" friction="${friction}"/>
             <limit effort="${shoulder_torque_max}" velocity="${shoulder_velocity_max}" lower="${shoulder_min}" upper="${shoulder_max}"/>
         </joint>
-        <link name="${name}_roll">
+        <link name="${name}_shoulder">
             <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             
@@ -121,33 +121,31 @@
             </inertial>
         </link>
 
-        <joint name="${name}_shoulder_joint" type="revolute">
+        <joint name="${name}_roll_joint" type="revolute">
             <xacro:if value="${(mirror_dae == True)}">
-            <origin rpy="0 0 0" xyz="0.0 0.0723 0.0"/>
+            <origin rpy="0 0 0" xyz="0.0 0.05 0.0"/>
             </xacro:if>
             <xacro:if value="${(mirror_dae == False)}">
-            <origin rpy="0 0 0" xyz="0.0 -0.0723 0.0"/>
+            <origin rpy="0 0 0" xyz="0.0 -0.05 0.0"/>
             </xacro:if>                
-            <parent link="${name}_roll"/>
-            <child link="${name}_shoulder"/>
+            <parent link="${name}_shoulder"/>
+            <child link="${name}_roll"/>
             <axis xyz="0 1 0"/>
             <dynamics damping="${damping}" friction="${friction}"/>
             <limit effort="${shoulder_torque_max}" velocity="${shoulder_velocity_max}" lower="${shoulder_min}" upper="${shoulder_max}"/>
         </joint>
-        <link name="${name}_shoulder">
+        <link name="${name}_roll">
             <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             
             <xacro:if value="${(mirror_dae == True)}">
             <geometry>
-                <!--mesh filename="package://hector_description/meshes/thigh_a1.dae" scale="1 1 1"/-->
                 <mesh filename="package://hector_description/meshes/hector_arm/UpperArmRoll_L.stl" scale="1 1 1"/>
             </geometry>
             </xacro:if>
             
             <xacro:if value="${(mirror_dae == False)}">
             <geometry>
-                <!--mesh filename="package://hector_description/meshes/thigh_mirror_a1.dae" scale="1 1 1"/-->
                 <mesh filename="package://hector_description/meshes/hector_arm/UpperArmRoll_R.stl" scale="1 1 1"/>
             </geometry>     
             </xacro:if> 
@@ -172,7 +170,7 @@
 
         <joint name="${name}_elbow_joint" type="revolute">
             <origin rpy="0 -1.5 0" xyz="0.0 0.0 -0.205"/>
-            <parent link="${name}_shoulder"/>
+            <parent link="${name}_roll"/>
             <child link="${name}_elbow"/>
             <axis xyz="0 1 0"/>
             <dynamics damping="${damping}" friction="${friction}"/>
@@ -182,7 +180,6 @@
             <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <!--mesh filename="package://hector_description/meshes/calf_a1.dae" scale="1 1 1"/-->
                 <mesh filename="package://hector_description/meshes/hector_arm/ForeArmPitch.stl" scale="1 1 1"/>
             </geometry>
             <material name="orange"/>

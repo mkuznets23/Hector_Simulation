@@ -25,8 +25,8 @@ class CheatIO : public IOInterface
         void sendCmd(const LowlevelCmd *cmd);
         void recvState(LowlevelState *state);
         ros::NodeHandle _nm;
-        ros::Subscriber _servo_sub[16], _state_sub;
-        ros::Publisher _servo_pub[16];
+        ros::Subscriber _servo_sub[18], _state_sub;
+        ros::Publisher _servo_pub[18];
         unitree_legged_msgs::LowCmd _lowCmd;
         unitree_legged_msgs::HighState _highState;
 
@@ -48,11 +48,11 @@ class CheatIO : public IOInterface
         void RtoeCallback(const unitree_legged_msgs::MotorState& msg);
 
         void L_twist_Callback(const unitree_legged_msgs::MotorState& msg);
-        // void L_roll_Callback(const unitree_legged_msgs::MotorState& msg);
+        void L_roll_Callback(const unitree_legged_msgs::MotorState& msg);
         void L_shoulder_Callback(const unitree_legged_msgs::MotorState& msg);
         void L_elbow_Callback(const unitree_legged_msgs::MotorState& msg);
         void R_twist_Callback(const unitree_legged_msgs::MotorState& msg);
-        // void R_roll_Callback(const unitree_legged_msgs::MotorState& msg);
+        void R_roll_Callback(const unitree_legged_msgs::MotorState& msg);
         void R_shoulder_Callback(const unitree_legged_msgs::MotorState& msg);
         void R_elbow_Callback(const unitree_legged_msgs::MotorState& msg); 
 

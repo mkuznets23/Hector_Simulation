@@ -22,23 +22,36 @@ In .h file the constructor can have a variable for planning
 
 JointPlanElement plan0 = {
     0,
-    {0,0.5,0},
-    {0,0.5,0}
+    {0,0,0,0},
+    {0,0,0,0}
 };
 
 JointPlanElement plan1 = {
     1000,
-    {0,-0.5,0},
-    {0,-0.5,0}
+    {0,0.5,0,0},
+    {0,0.5,0,0}
 };
+
+// JointPlanElement plan1 = {
+//     1000,
+//     {0,0,0.5,0},
+//     {0,0,0.5,0}
+// };
 
 JointPlanElement plan2 = {
     2000,
-   {0,-0.5,3.14},
-    {0,-0.5,3.14}
+    {0,0.5,0,3.14},
+    {0,0.5,0,3.14}
 };
 
-std::array<JointPlanElement,3> jointPlan = {plan0,plan1,plan2};
+// JointPlanElement plan3 = {
+//     2000,
+//    {0,0,-0.5,3.14},
+//     {0,0,-0.5,3.14}
+// };
+
+std::array<JointPlanElement,4> jointPlan = {plan0,plan1,plan2};
+// std::array<JointPlanElement,2> jointPlan = {plan0,plan1};
 
 
 // std::map<int, int> testPlanMap;
@@ -108,8 +121,8 @@ void ArmController::run(ControlFSMData& data){
                 //send command to motor to move, based on value of next
                 //pretty much set ArmControlCommand in ArmLowLevel object
 
-                Vec3<double> kp(10, 10, 10);
-                Vec3<double> kd(1, 1, 1);
+                Vec4<double> kp(10, 10, 10, 10);
+                Vec4<double> kd(1, 1, 1, 1);
                 // data._armLowLevel->armCommand[0].qDes = next.q_right;
                 data._armLowLevel->armCommand[0].qDes = next.q_right;
                 data._armLowLevel->armCommand[0].kpJoint = kp;

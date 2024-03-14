@@ -74,7 +74,7 @@
             <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
             </actuator>
-        </transmission>    
+        </transmission> 
 
         <transmission name="${name}_shoulder_tran">
             <type>transmission_interface/SimpleTransmission</type>
@@ -86,6 +86,17 @@
             <mechanicalReduction>1</mechanicalReduction>
             </actuator>
         </transmission>
+        
+         <transmission name="${name}_roll_tran">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${name}_roll_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${name}_roll_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>   
 
         <transmission name="${name}_elbow_tran">
             <type>transmission_interface/SimpleTransmission</type>
