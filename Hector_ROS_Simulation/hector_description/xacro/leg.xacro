@@ -164,12 +164,12 @@
                 <origin rpy="0 0 0" xyz="0 0 0"/>
                 <xacro:if value="${(mirror_dae == True)}">
                     <geometry>
-                        <mesh filename="package://hector_description/meshes/R_thigh.STL" scale="1 1 1"/>
+                        <mesh filename="package://hector_description/meshes/thigh_combined_R2.stl" scale="1 1 1"/>
                     </geometry>
                 </xacro:if>
                 <xacro:if value="${(mirror_dae == False)}">
                    <geometry>
-                        <mesh filename="package://hector_description/meshes/L_thigh.STL" scale="1 1 1"/>
+                        <mesh filename="package://hector_description/meshes/thigh_combined_L2.stl" scale="1 1 1"/>
                     </geometry>
                 </xacro:if>
                 <material name="white"/>
@@ -249,15 +249,15 @@
 
         <link name="${name}_calf">
             <visual>
-                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <origin rpy="0 0 0" xyz="0 0 0"/>R_calf.STL
                 <xacro:if value="${(mirror_dae == True)}">
                     <geometry>
-                        <mesh filename="package://hector_description/meshes/R_calf.STL" scale="1 1 1"/>
+                        <mesh filename="package://hector_description/meshes/calf_combined_R.stl" scale="1 1 1"/>
                     </geometry>
                 </xacro:if>
                 <xacro:if value="${(mirror_dae == False)}">
                    <geometry>
-                        <mesh filename="package://hector_description/meshes/L_calf.STL" scale="1 1 1"/>
+                        <mesh filename="package://hector_description/meshes/calf_combined_L.stl" scale="1 1 1"/>
                     </geometry>
                 </xacro:if>
                 <material name="orange"/>
@@ -292,12 +292,12 @@
                 <origin rpy="0 0 0" xyz="0 0 0"/>
                 <xacro:if value="${(mirror_dae == True)}">
                     <geometry>
-                        <mesh filename="package://hector_description/meshes/R_foot.STL" scale="1 1 1"/>
+                        <mesh filename="package://hector_description/meshes/foot_R2.stl" scale="1 1 1"/>
                     </geometry>
                 </xacro:if>
                 <xacro:if value="${(mirror_dae == False)}">
                    <geometry>
-                        <mesh filename="package://hector_description/meshes/L_foot.STL" scale="1 1 1"/>
+                        <mesh filename="package://hector_description/meshes/foot_L2.stl" scale="1 1 1"/>
                     </geometry>
                 </xacro:if>
                 <material name="red"/>
