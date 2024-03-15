@@ -3,7 +3,7 @@
 FSMState_MPC::FSMState_MPC(ControlFSMData *data)
                  :FSMState(data, FSMStateName::MPC, "mpc"),
                   Cmpc(0.001, 40),
-                  gaitNum(1),
+                  gaitNum(2),
                   armCtrl() {}
 
 template<typename T0, typename T1, typename T2>

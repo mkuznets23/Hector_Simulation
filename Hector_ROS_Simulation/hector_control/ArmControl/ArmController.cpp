@@ -2,18 +2,10 @@
 #include <iostream>
 #include <fstream>
 #include <map>
+#include <vector>
 
 /*
-This will contain a class that manages the arm data and commands:
--Path planning function will determine high level points to take the end effector at which times.
-    (for this to work, need to keep track of time passing)
-
--IK function will calculate motor positions to command
--Update function will continuously set the arms to the commanded positions
--Data returning function will return and allow updating the state data of the arms
-    (necessary since the commands may not reach targets exactly)
-
-In .h file the constructor can have a variable for planning
+This class will manage the execution of an arm plan consiting of joint space information with counter timings.
 */
 
 // long long time; //time variable that gets used to keep track of path execution.
@@ -50,7 +42,7 @@ JointPlanElement plan5 = {
     {0,1,0.5,3.14},//left
     {0,1,0.5,3.14}//right
 };
-std::array<JointPlanElement,6> jointPlan = {plan0,plan1,plan2,plan3,plan4,plan5};
+std::vector<JointPlanElement> jointPlan = {plan0,plan1,plan2,plan3,plan4,plan5};
 
 // JointPlanElement plan0 = {
 //     0,

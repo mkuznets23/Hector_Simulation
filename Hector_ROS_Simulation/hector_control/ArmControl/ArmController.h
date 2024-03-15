@@ -3,10 +3,10 @@
 #include "../include/common/cppTypes.h"
 
 struct JointPlanElement{
-    int time;
+    int time; //milliseconds, same as counter in FSM walking
     Vec4<double> q_left;
     Vec4<double> q_right;
-    // Twist, Shoulder, Elbow
+    // Twist, Shoulder, Roll, Elbow
 };
 
 class ArmController{
