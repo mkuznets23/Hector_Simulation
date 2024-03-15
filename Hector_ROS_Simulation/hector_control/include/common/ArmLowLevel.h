@@ -6,14 +6,12 @@
 struct ArmControlData{
     Vec4<double> q;
 }; // represents state of the arms (actual positions of arms, not just motor commands)
-    //Also contains index variable for path execution tracking
 
 struct ArmControlCommand{
     ArmControlCommand(){}
     void zero();
 
     // ArmControlCommand(){zero();}
-    
 
     Vec4<double> qDes;
     Vec4<double> kpJoint;

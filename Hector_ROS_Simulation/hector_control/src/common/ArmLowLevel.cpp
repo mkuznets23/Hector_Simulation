@@ -2,6 +2,7 @@
 /*
 This file will use commands to update arm motors
 */
+
 void ArmControlCommand::zero(){
     qDes = Vec4<double>::Zero();
     kpJoint = Vec4<double>::Zero();
@@ -11,9 +12,7 @@ void ArmControlCommand::zero(){
 //This function is going to be used to update cmd arm motors much like updateCommand does in LowLevelController.cpp
 void ArmLowLevel::updateCommand(LowlevelCmd* cmd){
     //loop that enacts motor commands
-    // cmd->motorCmd[11].q = armCommand[1].qDes
 
-    // cmd->motorCmd[11].q = -0.5; 
     cmd->motorCmd[10].q = -armCommand[0].qDes[0]; //right twist
     cmd->motorCmd[10].Kp = 10;
     cmd->motorCmd[10].Kd = 1;
@@ -41,8 +40,3 @@ void ArmLowLevel::updateCommand(LowlevelCmd* cmd){
     cmd->motorCmd[17].Kd = 1;
 
 }
-
-
-//Need some kind of function to be able to keep track of time and arm state though..
-//Maybe have the low level stuff about passing to cmd stay in LowLevelController, and this 
-//class will update 

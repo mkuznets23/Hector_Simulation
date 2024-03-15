@@ -239,7 +239,7 @@
     <xacro:property name="twist_offset_x" value="0.0"/> 
     <xacro:property name="twist_offset_y" value="0.0"/> 
     <!--xacro:property name="twist_offset_z" value="-0.22"/-->
-    <xacro:property name="twist_offset_z" value="-0.045"/>
+    <xacro:property name="twist_offset_z" value="-0.062"/>
     <xacro:property name="twist_offset" value="0.019"/>    
     <xacro:property name="twist_max" value="1.4"/>
     <xacro:property name="twist_min" value="-1.4"/>

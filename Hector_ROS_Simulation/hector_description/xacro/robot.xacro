@@ -43,7 +43,7 @@
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="package://hector_description/meshes/body.STL" scale="1 1 1"/>
+                <mesh filename="package://hector_description/meshes/body.stl" scale="1 1 1"/>
             </geometry>
             <material name="white"/>
         </visual>
@@ -124,7 +124,7 @@
     <joint name="head" type="fixed">
         <parent link="trunk"/>
         <child link="head_link"/>
-        <origin rpy="0 ${PI} ${PI/2}" xyz="0.07 0.0458 0.315"/>
+        <origin rpy="0 ${PI} ${PI/2}" xyz="0.07 0.0458 0.3"/>
     </joint>
 
     <link name="head_link">

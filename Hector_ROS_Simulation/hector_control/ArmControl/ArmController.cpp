@@ -8,10 +8,7 @@
 This class will manage the execution of an arm plan consiting of joint space information with counter timings.
 */
 
-// long long time; //time variable that gets used to keep track of path execution.
-    //Need to initialize time to 0 when this class first gets intantiated, then this will be used as a reference
-    //for all arm movement.
-
+//Eventually want the plan info to arrive from ArmPlanner, but for now using this to test:
 JointPlanElement plan0 = {
     0,
     {0,0,0,0},
@@ -42,7 +39,7 @@ JointPlanElement plan5 = {
     {0,1,0.5,3.14},//left
     {0,1,0.5,3.14}//right
 };
-std::vector<JointPlanElement> jointPlan = {plan0,plan1,plan2,plan3,plan4,plan5};
+std::vector<JointPlanElement> testPlan = {plan0,plan1,plan2,plan3,plan4,plan5};
 
 // JointPlanElement plan0 = {
 //     0,
@@ -56,49 +53,30 @@ std::vector<JointPlanElement> jointPlan = {plan0,plan1,plan2,plan3,plan4,plan5};
 // };
 // std::array<JointPlanElement,2> jointPlan = {plan0,plan1};
 
-// std::map<int, int> testPlanMap;
-//for now testPlan is fine, but later path should be a class instance field
 int start_count = 0;
 int current_count = 0;
 int plan_index = 0;
 bool executing = false;
 std::ofstream plan_log("plan_log.txt");
-/*
-This function needs to set commands to the ArmControlCommand struct as requests to move.
-It does this in a way coordinated with time info provided from path plan array.
-Can store an index of which path plan array step the program is currently at.
-(This index variable can be in ArmControlData struct)
-Index variable is actively incrementing at a set dt.
-These variables will be initially created when the main function initializes, so will persist through each FSM run iteration.
 
-Modifications to be made in FSM::run()
-While any more path array is left for execution (index not at end), it needs to be included in the looping FSM::run() function,
-where the executePath can increment at whatever rate in needs to based on specified timings
-
-*/
-
-// void convertToCounterScale(int (&plan)[]){
-    
-// }
 
 //c is the FSM counter for when to start executing the path
-//this parameter is just for debugging control now
+//this parameter is just for debugging now
 void ArmController::startPath(int c){
     // set start time to whatever the system time is
 
-    // auto now = std::chrono::system_clock::now();
-    // start_time = std::chrono::duration_cast<std::chrono::microseconds>(now.time_since_epoch()).count();
     start_count = c;
     plan_index = 0;
-    //turn on flag of path running and point to the path to run
+    //turn on flag of path running and point to the path to run <- implementing later
     executing = true;
 
     //open text file
     plan_log << "starting path" << std::endl;
 }
 
-// a call to this function in FSM::run() should perform the next move in the path sequence (if the specified dt has passed)
-// this way the freqeuncy of FSM::run and time resolution of path dont need to match. -> avoid errors down the line
+/*
+a call to this function in FSM::run() should perform the next move in the path sequence (if the specified count has been reached)
+*/
 void ArmController::run(ControlFSMData& data){
     // check counter 
 
@@ -106,9 +84,9 @@ void ArmController::run(ControlFSMData& data){
 
     if (executing){
         // pull next value in plan array
-        int length = std::end(jointPlan)-std::begin(jointPlan);
+        int length = std::end(testPlan)-std::begin(testPlan);
         if (plan_index < length){
-            auto next = jointPlan[plan_index];
+            auto next = testPlan[plan_index];
             int next_time = next.time;
             plan_log << "next = " << next_time << std::endl;
             int current_count_from_start = current_count - start_count;
@@ -116,7 +94,7 @@ void ArmController::run(ControlFSMData& data){
             if (current_count_from_start >= next_time){ // if ready to move onto this next step in plan
                 plan_index++; //increment plan index to move onto next path element
 
-                // do something with next (eventually actually do the move)
+                // movement
                 std::cout << "EXECUTING AT RELATIVE COUNT " << current_count_from_start << std::endl;
                 plan_log << "EXECUTING AT RELATIVE COUNT " << current_count_from_start << std::endl;
 
@@ -125,7 +103,7 @@ void ArmController::run(ControlFSMData& data){
 
                 Vec4<double> kp(10, 10, 10, 10);
                 Vec4<double> kd(1, 1, 1, 1);
-                // data._armLowLevel->armCommand[0].qDes = next.q_right;
+
                 data._armLowLevel->armCommand[0].qDes = next.q_right;
                 data._armLowLevel->armCommand[0].kpJoint = kp;
                 data._armLowLevel->armCommand[0].kdJoint  = kd;
@@ -142,12 +120,14 @@ void ArmController::run(ControlFSMData& data){
     }
 }
 
-//Check FSM counter value.
-//needs to execute before continueExecutePath()
+/*
+Check FSM counter value.
+needs to execute before continueExecutePath()
+*/
 void ArmController::checkCounter(int c)
 {
     auto now = std::chrono::system_clock::now();
-    // auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();
+
     auto millis = std::chrono::duration_cast<std::chrono::microseconds>(now.time_since_epoch()).count();
     std::cout << "COUNTER: " << c <<  "   Time: " << millis << std::endl;
     plan_log << "COUNTER: " << c <<  "   Time: " << millis << std::endl;
