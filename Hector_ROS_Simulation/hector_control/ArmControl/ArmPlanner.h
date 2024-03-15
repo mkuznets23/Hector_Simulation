@@ -4,6 +4,6 @@
 class ArmPlanner{
     public:
         ArmPlanner(){};
-        void planPath(std::vector<JointPlanElement>& plan);
+        std::vector<JointPlanElement> planPath();
         void IK();
 };

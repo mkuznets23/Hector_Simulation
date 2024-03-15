@@ -3,7 +3,8 @@
 
 #include "FSMState.h"
 #include "../../ConvexMPC/ConvexMPCLocomotion.h"
-#include "../../ArmControl/ArmController.h"
+// #include "../../ArmControl/ArmController.h"
+#include "../../ArmControl/ArmPlanner.h"
 class FSMState_MPC: public FSMState
 {
     public:
@@ -18,6 +19,7 @@ class FSMState_MPC: public FSMState
     private:
         ConvexMPCLocomotion Cmpc;
         ArmController armCtrl;
+        ArmPlanner armPlnr;
         int counter;
         Vec3<double> v_des_body;
         double turn_rate = 0;

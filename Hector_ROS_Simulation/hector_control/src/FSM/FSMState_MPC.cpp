@@ -4,7 +4,8 @@ FSMState_MPC::FSMState_MPC(ControlFSMData *data)
                  :FSMState(data, FSMStateName::MPC, "mpc"),
                   Cmpc(0.001, 40),
                   gaitNum(2),
-                  armCtrl() {}
+                  armCtrl(),
+                  armPlnr() {}
 
 template<typename T0, typename T1, typename T2>
 T1 invNormalize(const T0 value, const T1 min, const T2 max, const double minLim = -1, const double maxLim = 1){
@@ -56,7 +57,8 @@ void FSMState_MPC::run()
 
     //Arm Controller
     if (counter == 500){
-        armCtrl.startPath(counter);
+        std::vector<JointPlanElement> plan = armPlnr.planPath();
+        armCtrl.startPath(counter,plan);
     }    
     armCtrl.checkCounter(counter);
     armCtrl.run(*_data);

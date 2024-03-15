@@ -1,8 +1,5 @@
 #include "ArmController.h"
-#include <iostream>
-#include <fstream>
-#include <map>
-#include <vector>
+
 
 /*
 This class will manage the execution of an arm plan consiting of joint space information with counter timings.
@@ -53,17 +50,14 @@ std::vector<JointPlanElement> testPlan = {plan0,plan1,plan2,plan3,plan4,plan5};
 // };
 // std::array<JointPlanElement,2> jointPlan = {plan0,plan1};
 
-int start_count = 0;
-int current_count = 0;
-int plan_index = 0;
-bool executing = false;
 std::ofstream plan_log("plan_log.txt");
-
 
 //c is the FSM counter for when to start executing the path
 //this parameter is just for debugging now
-void ArmController::startPath(int c){
-    // set start time to whatever the system time is
+//Overall this function should pull in a certain path by reference and point this class to it.
+void ArmController::startPath(int c, std::vector<JointPlanElement>& plan){
+    // point class path to the one that is passed into this function
+    _plan = &plan;
 
     start_count = c;
     plan_index = 0;
@@ -78,15 +72,11 @@ void ArmController::startPath(int c){
 a call to this function in FSM::run() should perform the next move in the path sequence (if the specified count has been reached)
 */
 void ArmController::run(ControlFSMData& data){
-    // check counter 
-
-    // if count is equal to next path element, execute move.
-
     if (executing){
         // pull next value in plan array
-        int length = std::end(testPlan)-std::begin(testPlan);
+        int length = std::end(*_plan)-std::begin(*_plan);
         if (plan_index < length){
-            auto next = testPlan[plan_index];
+            auto next = (*_plan)[plan_index];
             int next_time = next.time;
             plan_log << "next = " << next_time << std::endl;
             int current_count_from_start = current_count - start_count;
