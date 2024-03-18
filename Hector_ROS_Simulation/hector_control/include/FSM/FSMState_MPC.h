@@ -24,6 +24,7 @@ class FSMState_MPC: public FSMState
         Vec3<double> v_des_body;
         double turn_rate = 0;
         double pitch, roll;
+        std::vector<JointPlanElement> plan;
 };
 
 #endif
