@@ -11,8 +11,8 @@ Should already incorporate acceleration and deceleration information.
 std::vector<JointPlanElement> ArmPlanner::planPath(){
     JointPlanElement plan0 = {
         0,
-        {0,0,0,0},
-        {0,0,0,0}
+        {0.1,0.3,0,0.1},
+        {0,0.1,0,0}
     };
     JointPlanElement plan1 = {
         500,
@@ -39,9 +39,8 @@ std::vector<JointPlanElement> ArmPlanner::planPath(){
         {0,1,0.5,3.14},//left
         {0,1,0.5,3.14}//right
     };
-    std::vector<JointPlanElement> testPlan = {plan0,plan1,plan2,plan3,plan4,plan5};
-
-    return testPlan;
+    std::vector<JointPlanElement> plan = {plan0,plan1,plan2,plan3,plan4,plan5};
+    return plan;
 }
 
 /*

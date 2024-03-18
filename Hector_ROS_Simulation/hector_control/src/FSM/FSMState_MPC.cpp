@@ -56,9 +56,9 @@ void FSMState_MPC::run()
     _data->_legController->updateCommand(_data->_lowCmd);  
 
     //Arm Controller
-    if (counter == 500){
+    if (counter == 100){
         std::vector<JointPlanElement> plan = armPlnr.planPath();
-        armCtrl.startPath(counter,plan);
+        armCtrl.startPath(counter,&plan);
     }    
     armCtrl.checkCounter(counter);
     armCtrl.run(*_data);

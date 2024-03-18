@@ -6,37 +6,7 @@ This class will manage the execution of an arm plan consiting of joint space inf
 */
 
 //Eventually want the plan info to arrive from ArmPlanner, but for now using this to test:
-JointPlanElement plan0 = {
-    0,
-    {0,0,0,0},
-    {0,0,0,0}
-};
-JointPlanElement plan1 = {
-    500,
-    {0.5,0,0,0},//left
-    {0.5,0,0,0}//right
-};
-JointPlanElement plan2 = {
-    1000,
-    {-0.5,0,0,0},//left
-    {-0.5,0,0,0}//right
-};
-JointPlanElement plan3 = {
-    1500,
-    {0,-0.5,0,0},//left
-    {0,-0.5,0,0}//right
-};
-JointPlanElement plan4 = {
-    2000,
-    {0,1,0.5,0},//left
-    {0,1,0.5,0}//right
-};
-JointPlanElement plan5 = {
-    2500,
-    {0,1,0.5,3.14},//left
-    {0,1,0.5,3.14}//right
-};
-std::vector<JointPlanElement> testPlan = {plan0,plan1,plan2,plan3,plan4,plan5};
+
 
 // JointPlanElement plan0 = {
 //     0,
@@ -55,9 +25,9 @@ std::ofstream plan_log("plan_log.txt");
 //c is the FSM counter for when to start executing the path
 //this parameter is just for debugging now
 //Overall this function should pull in a certain path by reference and point this class to it.
-void ArmController::startPath(int c, std::vector<JointPlanElement>& plan){
+void ArmController::startPath(int c, std::vector<JointPlanElement>* plan){
     // point class path to the one that is passed into this function
-    _plan = &plan;
+    _plan = plan;
 
     start_count = c;
     plan_index = 0;
@@ -76,7 +46,7 @@ void ArmController::run(ControlFSMData& data){
         // pull next value in plan array
         int length = std::end(*_plan)-std::begin(*_plan);
         if (plan_index < length){
-            auto next = (*_plan)[plan_index];
+            JointPlanElement next = (*_plan)[plan_index];
             int next_time = next.time;
             plan_log << "next = " << next_time << std::endl;
             int current_count_from_start = current_count - start_count;
@@ -105,6 +75,7 @@ void ArmController::run(ControlFSMData& data){
         }
         else{ //plan is finished
             executing = false;
+            plan_log << "Done executing";
             plan_log.close();
         }
     }
