@@ -76,10 +76,10 @@
 
         <joint name="${name}_shoulder_joint" type="revolute">
             <xacro:if value="${(mirror_dae == True)}">
-            <origin rpy="0 0 0" xyz="0.0 0.045 0.0"/>
+            <origin rpy="0 0 0" xyz="0.0 0.045 -0.018"/>
             </xacro:if>
             <xacro:if value="${(mirror_dae == False)}">
-            <origin rpy="0 0 0" xyz="0.0 -0.045 0.0"/>
+            <origin rpy="0 0 0" xyz="0.0 -0.045 -0.018"/>
             </xacro:if>                
             <parent link="${name}_twist"/>
             <child link="${name}_shoulder"/>

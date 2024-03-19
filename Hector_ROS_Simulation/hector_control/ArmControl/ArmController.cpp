@@ -5,21 +5,6 @@
 This class will manage the execution of an arm plan consiting of joint space information with counter timings.
 */
 
-//Eventually want the plan info to arrive from ArmPlanner, but for now using this to test:
-
-
-// JointPlanElement plan0 = {
-//     0,
-//     {0,3.14/2,0,0},
-//     {0,3.14/2,0,0}
-// };
-// JointPlanElement plan1 = {
-//     1000,
-//     {0,3.14,0,3.14},//left
-//     {0,3.14,0,3.14}//right
-// };
-// std::array<JointPlanElement,2> jointPlan = {plan0,plan1};
-
 std::ofstream plan_log("plan_log.txt");
 
 //c is the FSM counter for when to start executing the path

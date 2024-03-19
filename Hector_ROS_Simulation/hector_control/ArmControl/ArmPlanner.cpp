@@ -48,5 +48,5 @@ IK function will be used to convert an end effector plan into joint configuratio
 Can implement this later.
 */
 void ArmPlanner::IK(){
-
+    
 }
