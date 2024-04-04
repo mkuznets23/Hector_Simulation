@@ -56,12 +56,20 @@ void FSMState_MPC::run()
     _data->_legController->updateCommand(_data->_lowCmd);  
 
     //Arm Controller
-    if (counter == 500){
+    if (counter == 1000 || counter == 1600){
         plan = armPlnr.planPath();
-        armCtrl.startPath(counter,&plan);
+        armCtrl.startPath(counter,&plan);        
     }    
     armCtrl.checkCounter(counter);
     armCtrl.run(*_data);
+
+    Vec3<double> P_e;
+    // P_e << 0.2,-0.094,-0.2;
+    P_e << 0.2,-0.094,0.2;
+
+    std::cout << "IK End Effector: " << P_e << std::endl;
+    Vec4<double> joints = armPlnr.IK(P_e);
+    std::cout << "IK Joints: " << joints << std::endl;
 
     _data->_armLowLevel->updateCommand(_data->_lowCmd);  
 

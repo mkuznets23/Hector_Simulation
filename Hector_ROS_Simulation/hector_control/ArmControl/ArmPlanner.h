@@ -5,5 +5,5 @@ class ArmPlanner{
     public:
         ArmPlanner(){};
         std::vector<JointPlanElement> planPath();
-        void IK();
+        Vec4<double> IK(Vec3<double> P_e);
 };

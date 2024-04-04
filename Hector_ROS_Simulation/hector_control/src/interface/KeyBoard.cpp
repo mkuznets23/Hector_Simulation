@@ -84,6 +84,10 @@ void KeyBoard::changeValue(){
     case 'j':case 'J':
         userValue.rx = max<float>(userValue.rx-sensitivityRight, -1);
         break;
+
+    case 'q':case 'Q':
+        // begin arm movement
+        break;
     default:
         break;
     }
