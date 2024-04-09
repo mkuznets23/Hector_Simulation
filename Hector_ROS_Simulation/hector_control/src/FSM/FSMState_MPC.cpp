@@ -3,7 +3,7 @@
 FSMState_MPC::FSMState_MPC(ControlFSMData *data)
                  :FSMState(data, FSMStateName::MPC, "mpc"),
                   Cmpc(0.001, 40),
-                  gaitNum(2),
+                  gaitNum(1),
                   armCtrl(),
                   armPlnr() {}
 
@@ -55,21 +55,29 @@ void FSMState_MPC::run()
 
     _data->_legController->updateCommand(_data->_lowCmd);  
 
-    //Arm Controller
-    if (counter == 1000 || counter == 1600){
-        plan = armPlnr.planPath();
+    // Arm Controller //
+    if (counter == 1000){
+        plan = armPlnr.planPath(); //joint
         armCtrl.startPath(counter,&plan);        
     }    
-    armCtrl.checkCounter(counter);
-    armCtrl.run(*_data);
 
-    Vec3<double> P_e;
-    // P_e << 0.2,-0.094,-0.2;
-    P_e << 0.2,-0.094,0.2;
+    Vec3<double> pathDes_R = armPlnr.getPath_waveRight(counter);
+    Vec3<double> pathDes_L = armPlnr.getPath_waveLeft(counter);
+    Vec4<double> jointDes_R = armPlnr.IK(pathDes_R,0);
+    Vec4<double> jointDes_L = armPlnr.IK(pathDes_L,1);
+    armCtrl.set(*_data,jointDes_R, jointDes_L);
+    
+    // std::cout << "Path Desired: " << pathDes << std::endl;
+    // armCtrl.checkCounter(counter);
+    // armCtrl.run(*_data);
 
-    std::cout << "IK End Effector: " << P_e << std::endl;
-    Vec4<double> joints = armPlnr.IK(P_e);
-    std::cout << "IK Joints: " << joints << std::endl;
+    // Vec3<double> P_e;
+    // // P_e << 0.2,-0.094,-0.2;
+    // P_e << 0.2,-0.094,0.2;
+
+    // std::cout << "IK End Effector: " << jointDes << std::endl;
+    // Vec4<double> joints = armPlnr.IK(P_e);
+    // std::cout << "IK Joints: " << joints << std::endl;
 
     _data->_armLowLevel->updateCommand(_data->_lowCmd);  
 

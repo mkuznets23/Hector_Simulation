@@ -87,6 +87,7 @@ void KeyBoard::changeValue(){
 
     case 'q':case 'Q':
         // begin arm movement
+        
         break;
     default:
         break;

@@ -19,6 +19,7 @@ class ArmController{
         void checkCounter(int c);
         void startPath(int c, std::vector<JointPlanElement>* plan);
         void run(ControlFSMData& data);
+        void set(ControlFSMData& data, Vec4<double> jointDes_R, Vec4<double> jointDes_L);
 
         // JointPlanElement plan0 = {
         //     0,

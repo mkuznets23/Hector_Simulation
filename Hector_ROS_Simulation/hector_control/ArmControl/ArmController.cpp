@@ -65,7 +65,23 @@ void ArmController::run(ControlFSMData& data){
         }
     }
 }
+void ArmController::set(ControlFSMData& data, Vec4<double> jointDes_R, Vec4<double> jointDes_L){
 
+
+                Vec4<double> kp(10, 10, 10, 10);
+                Vec4<double> kd(1, 1, 1, 1);
+
+                // right
+                data._armLowLevel->armCommand[0].qDes = jointDes_R;
+                data._armLowLevel->armCommand[0].kpJoint = kp;
+                data._armLowLevel->armCommand[0].kdJoint  = kd;
+
+                // left
+                data._armLowLevel->armCommand[1].qDes = jointDes_L;
+                data._armLowLevel->armCommand[1].kpJoint = kp;
+                data._armLowLevel->armCommand[1].kdJoint  = kd;
+
+}
 /*
 Check FSM counter value.
 needs to execute before continueExecutePath()

@@ -93,7 +93,7 @@ void ConvexMPCLocomotion::run(ControlFSMData &data)
     {
       pBody_des[0] = seResult.position[0];
       pBody_des[1] = seResult.position[1];
-      pBody_des[2] = 0.55;
+      pBody_des[2] = 0.35; // was 0.55
 
       vBody_des[0] = 0;
       vBody_des[0] = 0;
