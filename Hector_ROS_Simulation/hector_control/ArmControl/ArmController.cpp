@@ -65,18 +65,20 @@ void ArmController::run(ControlFSMData& data){
         }
     }
 }
-void ArmController::set(ControlFSMData& data, Vec4<double> jointDes_R, Vec4<double> jointDes_L){
+void ArmController::set(ControlFSMData& data, Eigen::VectorXd jointDes){
 
 
                 Vec4<double> kp(10, 10, 10, 10);
                 Vec4<double> kd(1, 1, 1, 1);
 
                 // right
+                Eigen::VectorXd jointDes_R = jointDes.segment<4>(4);
                 data._armLowLevel->armCommand[0].qDes = jointDes_R;
                 data._armLowLevel->armCommand[0].kpJoint = kp;
                 data._armLowLevel->armCommand[0].kdJoint  = kd;
 
                 // left
+                Eigen::VectorXd jointDes_L = jointDes.segment<4>(0);
                 data._armLowLevel->armCommand[1].qDes = jointDes_L;
                 data._armLowLevel->armCommand[1].kpJoint = kp;
                 data._armLowLevel->armCommand[1].kdJoint  = kd;

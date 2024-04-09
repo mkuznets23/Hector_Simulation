@@ -59,39 +59,49 @@ void FSMState_MPC::run()
     // Arm Controller //
     
     if (counter == 1000){
+        armPlnr.startCount = 0;
         armPlnr.armMovement = HighFive;
     }
-    else if (counter == 3000){
-        armPlnr.armMovement = Wave;
+    if (counter == 2500){
+        armPlnr.startCount = 0;
+        armPlnr.armMovement = Heart;
+    }
+    else if (counter == 5000){
+        armPlnr.armMovement = Dance;
     }
     int relativeCount;
-    Vec3<double> pathDes_L;
-    Vec3<double> pathDes_R;
+    Vec6<double> pathDes;
     switch(armPlnr.armMovement){
         case HighFive: // high five right hand
-            if (armPlnr.highFive_startCount == 0){
-                armPlnr.highFive_startCount = counter;
+            if (armPlnr.startCount == 0){
+                armPlnr.startCount = counter;
             }
-            relativeCount = counter - armPlnr.highFive_startCount;
-            pathDes_R = armPlnr.getPath_highFive(relativeCount);
-            pathDes_L = armPlnr.getPath_defaultLeft(counter);
+            relativeCount = counter - armPlnr.startCount;
+            pathDes = armPlnr.getPath_highFive(relativeCount);
             // std::cout << "High Five Relative Count: " << relativeCount << std::endl;
             break;
         case Wave: // wave right hand
-            pathDes_L = armPlnr.getPath_waveLeft(counter);
-            pathDes_R = armPlnr.getPath_waveRight(counter);
+            pathDes = armPlnr.getPath_waveLeft(counter);
+            break;
+        case Heart: // wave right hand
+            if (armPlnr.startCount == 0){
+                armPlnr.startCount = counter;
+            }
+            relativeCount = counter - armPlnr.startCount;
+            pathDes = armPlnr.getPath_heart2(relativeCount);
+            break;
+        case Dance: // wave right hand
+            pathDes = armPlnr.getPath_dance(counter, roll);
             break;
         default: // arms at default position
-            pathDes_L = armPlnr.getPath_defaultLeft(counter);
-            pathDes_R = armPlnr.getPath_defaultRight(counter);
+            pathDes = armPlnr.getPath_default();
             break;
     }
-    std::cout << "PathDesR: " << pathDes_R << std::endl;
-    std::cout << "PathDesL: " << pathDes_L << std::endl;
-    Vec4<double> jointDes_R = armPlnr.IK(pathDes_R,0);
-    Vec4<double> jointDes_L = armPlnr.IK(pathDes_L,1);
-        
-    armCtrl.set(*_data,jointDes_R, jointDes_L);
+    std::cout << "PathDes: " << pathDes << std::endl;
+
+    Eigen::VectorXd jointDes = armPlnr.IK(pathDes);
+
+    armCtrl.set(*_data,jointDes);
 
 
     // std::cout << "Path Desired: " << pathDes << std::endl;
