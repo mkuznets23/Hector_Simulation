@@ -55,18 +55,45 @@ void FSMState_MPC::run()
 
     _data->_legController->updateCommand(_data->_lowCmd);  
 
+    
     // Arm Controller //
+    
     if (counter == 1000){
-        plan = armPlnr.planPath(); //joint
-        armCtrl.startPath(counter,&plan);        
-    }    
-
-    Vec3<double> pathDes_R = armPlnr.getPath_waveRight(counter);
-    Vec3<double> pathDes_L = armPlnr.getPath_waveLeft(counter);
+        armPlnr.armMovement = HighFive;
+    }
+    else if (counter == 3000){
+        armPlnr.armMovement = Wave;
+    }
+    int relativeCount;
+    Vec3<double> pathDes_L;
+    Vec3<double> pathDes_R;
+    switch(armPlnr.armMovement){
+        case HighFive: // high five right hand
+            if (armPlnr.highFive_startCount == 0){
+                armPlnr.highFive_startCount = counter;
+            }
+            relativeCount = counter - armPlnr.highFive_startCount;
+            pathDes_R = armPlnr.getPath_highFive(relativeCount);
+            pathDes_L = armPlnr.getPath_defaultLeft(counter);
+            // std::cout << "High Five Relative Count: " << relativeCount << std::endl;
+            break;
+        case Wave: // wave right hand
+            pathDes_L = armPlnr.getPath_waveLeft(counter);
+            pathDes_R = armPlnr.getPath_waveRight(counter);
+            break;
+        default: // arms at default position
+            pathDes_L = armPlnr.getPath_defaultLeft(counter);
+            pathDes_R = armPlnr.getPath_defaultRight(counter);
+            break;
+    }
+    std::cout << "PathDesR: " << pathDes_R << std::endl;
+    std::cout << "PathDesL: " << pathDes_L << std::endl;
     Vec4<double> jointDes_R = armPlnr.IK(pathDes_R,0);
     Vec4<double> jointDes_L = armPlnr.IK(pathDes_L,1);
+        
     armCtrl.set(*_data,jointDes_R, jointDes_L);
-    
+
+
     // std::cout << "Path Desired: " << pathDes << std::endl;
     // armCtrl.checkCounter(counter);
     // armCtrl.run(*_data);

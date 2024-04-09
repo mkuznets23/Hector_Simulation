@@ -76,8 +76,39 @@ Vec3<double> ArmPlanner::getPath_waveLeft(int count){
     return P_e;
 }
 
-Vec3<double> ArmPlanner::getPath_throwBall(int count){
+Vec3<double> ArmPlanner::getPath_highFive(int count){
+    double s = count * 1.0/1000; // path parameter (in seconds)
+    std::cout << "High Five s parameter: " << s << std::endl;
+    double x = 0.2;
+    if (s < 1){
+        x = 0.2+ s*0.1;
+    }
+    double y = -0.08; 
+    double z = 0.1;
 
+    Vec3<double> P_e;
+    P_e << x,y,z;
+    return P_e;
+}
+
+Vec3<double> ArmPlanner::getPath_defaultRight(int count){
+    double x = 0.2;
+    double y = -0.08; 
+    double z = -0.2;
+
+    Vec3<double> P_e;
+    P_e << x,y,z;
+    return P_e;
+}
+
+Vec3<double> ArmPlanner::getPath_defaultLeft(int count){
+    double x = 0.2;
+    double y = 0.08; 
+    double z = -0.2;
+
+    Vec3<double> P_e;
+    P_e << x,y,z;
+    return P_e;
 }
 
 /*
@@ -165,7 +196,6 @@ Vec4<double> ArmPlanner::IK(Vec3<double> P_e, int arm){
                 0,  0,  1;
 
         Vec3<double> P_rotated = Rx*Rz*Ry*P_e;
-        // Vec3<double> P_rotated = Rz*Ry*P_e;
 
         std::cout << "P Rotated: " << P_rotated;
 
@@ -183,16 +213,12 @@ Vec4<double> ArmPlanner::IK(Vec3<double> P_e, int arm){
 
 
         double  L = sqrt(pow(x,2)+pow(y,2)-pow(L1,2));
-        // double theta1 = -atan2(-y,x) - atan2(L,-L1); // paper
         double theta1 = atan2(y, -x) + atan2(L1, -L); //twist
-        // double theta1 = atan2(y*L1+x*L, x*L1-y*L); //Moh
 
         double theta2 = atan2(z,sqrt(pow(x,2)+pow(y,2)-pow(L1,2)))-atan2(L3*sin(theta4),L2+L3*cos(theta4)); //shoulder
         double theta3 = 0; // roll - fixed
 
         theta1 = theta1 - pi/2;
-        // theta1 = theta1+4.02031;
-        // theta1 = theta1 + 0.878722;
         theta2 = theta2 + pi/2;
         theta4 =  -(theta4 - pi/2); //correct for difference angle 0 between quadruped definition and hector
 
@@ -202,8 +228,6 @@ Vec4<double> ArmPlanner::IK(Vec3<double> P_e, int arm){
     }
     else if (arm == 1){
         // this is IK for a quadruped robot limb, so need to apply -pi/2 pitch rotation about arm base to P_e
-        
-        
         double th = -pi/2;
         Mat3<double> Rx;
         Rx << 1,0,0,
@@ -219,7 +243,6 @@ Vec4<double> ArmPlanner::IK(Vec3<double> P_e, int arm){
                 0,  0,  1;
 
         Vec3<double> P_rotated = Rx*Rz*Ry*P_e;
-        // Vec3<double> P_rotated = Rz*Ry*P_e;
 
         std::cout << "P Rotated: " << P_rotated;
 
@@ -241,16 +264,12 @@ Vec4<double> ArmPlanner::IK(Vec3<double> P_e, int arm){
 
 
         double  L = sqrt(pow(x,2)+pow(y,2)-pow(L1,2));
-        // double theta1 = -atan2(-y,x) - atan2(L,-L1); // paper
         double theta1 = atan2(y, -x) + atan2(L1, -L); //twist
-        // double theta1 = atan2(y*L1+x*L, x*L1-y*L); //Moh
 
         double theta2 = atan2(z,sqrt(pow(x,2)+pow(y,2)-pow(L1,2)))-atan2(L3*sin(theta4),L2+L3*cos(theta4)); //shoulder
         double theta3 = 0; // roll - fixed
 
         theta1 = theta1 - 3*pi/2;
-        // theta1 = theta1+4.02031;
-        // theta1 = theta1 + 0.878722;
         theta2 = theta2 + pi/2;
         theta4 =  -(theta4 - pi/2); //correct for difference angle 0 between quadruped definition and hector
 
