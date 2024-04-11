@@ -64,7 +64,7 @@ void FSMState_MPC::run()
         armPlnr.startCount = 0;
         armPlnr.armMovement = DoBallPick;
     }
-    else if (counter == 2000){
+    else if (counter == 5000){
         armPlnr.startCount = 0;
         armPlnr.armMovement = Throw;
     }
@@ -119,7 +119,7 @@ void FSMState_MPC::run()
                 armPlnr.startCount = counter;
             }
             relativeCount = counter - armPlnr.startCount;
-            pathDes = armPlnr.getPath_throw(relativeCount);
+            pathDes = armPlnr.getPath_throw(relativeCount, pitch);
             break;
         default: // arms at default position
             pathDes = armPlnr.getPath_default();

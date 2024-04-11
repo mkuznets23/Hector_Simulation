@@ -50,7 +50,7 @@
             <link name="ball_link">
                 <pose>0 0 0 0 0 0</pose> <!-- Pose relative to the model -->
                 <inertial>
-                    <mass>0.1</mass> <!-- Mass of the ball -->
+                    <mass>0.001</mass> <!-- Mass of the ball -->
                     <inertia>
                         <ixx>0.1</ixx> <!-- Inertia tensor components -->
                         <iyy>0.1</iyy>
@@ -89,20 +89,20 @@
         </model>
 
         <model name="table_model">
-            <pose>0.65 0 0.35 0 0 0</pose> 
+            <pose>0.25 0 0.35 0 0 0</pose> 
             <static>true</static>
             <link name="table_link"> 
                 <collision name="collision">
                 <geometry>
                     <box>
-                    <size>1 1 0.05</size> 
+                    <size>0.2 1 0.05</size> 
                     </box>
                 </geometry>
                 </collision>
                 <visual name="visual">
                 <geometry>
                     <box>
-                    <size>1 1 0.05</size>
+                    <size>0.2 1 0.05</size>
                     </box>
                 </geometry>
                 <material>

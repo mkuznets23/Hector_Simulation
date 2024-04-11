@@ -188,26 +188,27 @@ Vec6<double> ArmPlanner::getPath_doBallPickup(int count){
     double y_r = -0.04; 
     double z_r = -0.25;
 
-    // if (count > 1000){
-    //     // Left Arm
-    //     x_l = 0.3;
-    //     z_l = -0.1;
+    if (count > 1000){
+        // Left Arm
+        x_l = 0.2;
+        z_l = -0.2;
 
-    //     // Right Arm
-    //     x_r = 0.3;
-    //     z_r = -0.1;
-    // }
+        // Right Arm
+        x_r = 0.2;
+        z_r = -0.2;
+    }
 
      Vec6<double> P_e;
     P_e << x_l,y_l,z_l,x_r,y_r,z_r;
     return P_e;
 }
 
-Vec6<double> ArmPlanner::getPath_throw(int count){
-    double t = count/1000; //in seconds
-    double throwTime = 0.2;
+Vec6<double> ArmPlanner::getPath_throw(int count, double& pitch){
+    double t = count/1000.0; //in seconds
+    double throwTime = 0.01;
     double x_delta = 0.1;
     double z_delta = 0.25;
+    double pitch_delta = 0.3;
 
     // Left Arm
     double x_l = 0.3;
@@ -222,24 +223,28 @@ Vec6<double> ArmPlanner::getPath_throw(int count){
     if (t < throwTime){
         // Left Arm
         x_l = 0.3 + x_delta * t/throwTime;
+        // x_l = 0.3;
         y_l = 0.04; 
         z_l = -0.25 + z_delta * t/throwTime;
 
         // Right Arm
         x_r = 0.3 + x_delta * t/throwTime;
+        // x_r = 0.3;
         y_r = -0.04; 
         z_r = -0.25 + z_delta * t/throwTime;
+        // pitch = pitch + pitch_delta * t/throwTime;
     }
     else if (t >= throwTime){
         // Left Arm
         x_l = 0.3 + x_delta;
-        y_l = 0.04; 
+        y_l = 0.09; 
         z_l = -0.25 + z_delta;
 
         // Right Arm
         x_r = 0.3 + x_delta;
-        y_r = -0.04; 
+        y_r = -0.09; 
         z_r = -0.25 + z_delta;
+        // pitch = pitch + pitch_delta;
     }    
 
     Vec6<double> P_e;

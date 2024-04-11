@@ -25,7 +25,7 @@ class ArmPlanner{
         Vec6<double> getPath_dance(int count, double &roll);
         Vec6<double> getPath_prepareBallPickup();
         Vec6<double> getPath_doBallPickup(int count);
-        Vec6<double> getPath_throw(int count);
+        Vec6<double> getPath_throw(int count, double& pitch);
         Vec6<double> getPath_default();
 
         Eigen::VectorXd IK(Vec6<double> Pe);
