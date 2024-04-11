@@ -57,18 +57,29 @@ void FSMState_MPC::run()
 
     
     // Arm Controller //
-    
     if (counter == 1000){
+        armPlnr.armMovement = PrepBallPick;
+    }
+    else if (counter == 1500){
         armPlnr.startCount = 0;
-        armPlnr.armMovement = HighFive;
+        armPlnr.armMovement = DoBallPick;
     }
-    if (counter == 2500){
+    else if (counter == 2000){
         armPlnr.startCount = 0;
-        armPlnr.armMovement = Heart;
+        armPlnr.armMovement = Throw;
     }
-    else if (counter == 5000){
-        armPlnr.armMovement = Dance;
-    }
+  
+    // if (counter == 1000){
+    //     armPlnr.startCount = 0;
+    //     armPlnr.armMovement = HighFive;
+    // }
+    // if (counter == 2500){
+    //     armPlnr.startCount = 0;
+    //     armPlnr.armMovement = Heart;
+    // }
+    // else if (counter == 5000){
+    //     armPlnr.armMovement = Dance;
+    // }
     int relativeCount;
     Vec6<double> pathDes;
     switch(armPlnr.armMovement){
@@ -93,6 +104,23 @@ void FSMState_MPC::run()
         case Dance: // wave right hand
             pathDes = armPlnr.getPath_dance(counter, roll);
             break;
+        case PrepBallPick: // wave right hand
+            pathDes = armPlnr.getPath_prepareBallPickup();
+            break;
+        case DoBallPick: // wave right hand
+            if (armPlnr.startCount == 0){
+                armPlnr.startCount = counter;
+            }
+            relativeCount = counter - armPlnr.startCount;
+            pathDes = armPlnr.getPath_doBallPickup(relativeCount);
+            break;
+        case Throw: // wave right hand
+            if (armPlnr.startCount == 0){
+                armPlnr.startCount = counter;
+            }
+            relativeCount = counter - armPlnr.startCount;
+            pathDes = armPlnr.getPath_throw(relativeCount);
+            break;
         default: // arms at default position
             pathDes = armPlnr.getPath_default();
             break;
@@ -102,19 +130,6 @@ void FSMState_MPC::run()
     Eigen::VectorXd jointDes = armPlnr.IK(pathDes);
 
     armCtrl.set(*_data,jointDes);
-
-
-    // std::cout << "Path Desired: " << pathDes << std::endl;
-    // armCtrl.checkCounter(counter);
-    // armCtrl.run(*_data);
-
-    // Vec3<double> P_e;
-    // // P_e << 0.2,-0.094,-0.2;
-    // P_e << 0.2,-0.094,0.2;
-
-    // std::cout << "IK End Effector: " << jointDes << std::endl;
-    // Vec4<double> joints = armPlnr.IK(P_e);
-    // std::cout << "IK Joints: " << joints << std::endl;
 
     _data->_armLowLevel->updateCommand(_data->_lowCmd);  
 

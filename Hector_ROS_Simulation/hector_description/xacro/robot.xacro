@@ -8,9 +8,10 @@
     <xacro:include filename="$(find hector_description)/xacro/arm.xacro"/>
     <xacro:include filename="$(find hector_description)/xacro/stairs.xacro"/>
     <xacro:include filename="$(find hector_description)/xacro/gazebo.xacro"/>
+    <xacro:include filename="$(find hector_description)/xacro/ball.xacro"/>
 
     <!-- <xacro:stairs stairs="15" xpos="0" ypos="0" zpos="0" /> -->
-
+    <!-- <xacro:ball_mesh radius="0.1" color="1 0 0" position="0 0 0.5"/> -->
     <!-- Rollover Protection mode will add an additional stick on the top, use "true" or "false" to switch it. -->
     <xacro:property name="rolloverProtection" value="false"/>
 
@@ -38,6 +39,8 @@
         <parent link="base"/>
         <child link="trunk"/>
     </joint>
+
+    
 
     <link name="trunk">
         <visual>
@@ -164,4 +167,7 @@
         <origin rpy="0 0 0" xyz="${hip_offset_x} ${-hip_offset_y} ${-hip_offset_z}"/>
     </xacro:arm>    
 
+
+
+    
 </robot>

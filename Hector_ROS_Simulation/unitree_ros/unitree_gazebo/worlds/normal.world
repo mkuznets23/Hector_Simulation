@@ -37,11 +37,89 @@
         <include>
             <uri>model://ground_plane</uri>
         </include>
+
+
+        <!-- A global light source -->
+        <!-- <include>
+            <uri>model://sphere</uri>
+        </include> -->
+        <model name="ball">
+            <!-- Position and orientation -->
+            <pose>0.23 0 0.5 0 0 0</pose>
+            <!-- <pose>0.5 0 0.8 0 0 0</pose> -->
+            <link name="ball_link">
+                <pose>0 0 0 0 0 0</pose> <!-- Pose relative to the model -->
+                <inertial>
+                    <mass>0.1</mass> <!-- Mass of the ball -->
+                    <inertia>
+                        <ixx>0.1</ixx> <!-- Inertia tensor components -->
+                        <iyy>0.1</iyy>
+                        <izz>0.1</izz>
+                    </inertia>
+                </inertial>
+                <collision name="collision">
+                <geometry>
+                    <sphere>
+                    <radius>0.1</radius> <!-- Sphere radius -->
+                    </sphere>
+                </geometry>
+                <contact>
+                    <ode>
+                        <kp>10</kp> <!-- Contact stiffness -->
+                        <kd>10</kd> <!-- Contact damping -->
+                    </ode>
+                </contact>
+                <surface>
+                    <friction>
+                        <ode>
+                        <mu>1.0</mu> <!-- Coefficient of friction -->
+                        <mu2>1.0</mu2> <!-- Second friction parameter (optional) -->
+                        </ode>
+                    </friction>
+                </surface>
+                </collision>
+                <visual name="visual">
+                <geometry>
+                    <sphere>
+                    <radius>0.1</radius> <!-- Sphere radius -->
+                    </sphere>
+                </geometry>
+                </visual>
+            </link>
+        </model>
+
+        <model name="table_model">
+            <pose>0.65 0 0.35 0 0 0</pose> 
+            <static>true</static>
+            <link name="table_link"> 
+                <collision name="collision">
+                <geometry>
+                    <box>
+                    <size>1 1 0.05</size> 
+                    </box>
+                </geometry>
+                </collision>
+                <visual name="visual">
+                <geometry>
+                    <box>
+                    <size>1 1 0.05</size>
+                    </box>
+                </geometry>
+                <material>
+                    <ambient>0.8 0.4 0.1 1</ambient>
+                </material>
+                </visual>
+            </link>
+        </model>
+
+
         <!-- environment blocks, obstacles or stairs -->
         <model name="static_environment">
         <static>true</static>
     
         </model>
+
+
     
 
     </world>

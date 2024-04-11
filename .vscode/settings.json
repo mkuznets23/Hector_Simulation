@@ -71,5 +71,6 @@
         "bit": "cpp",
         "matrixfunctions": "cpp",
         "dense": "cpp"
-    }
+    },
+    "cmake.configureOnOpen": false
 }

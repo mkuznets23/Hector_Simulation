@@ -195,7 +195,15 @@
                 <origin rpy="0 ${PI/2.0} 0" xyz="0 0 ${-elbow_length/2.0}"/>
                 <geometry>
                     <box size="${elbow_length} ${elbow_width} ${elbow_height}"/>
-                </geometry>      
+                </geometry>  
+                <!-- <surface>
+                    <friction>
+                        <ode>
+                        <mu>1.0</mu> 
+                        <mu2>1.0</mu2>
+                        </ode>
+                    </friction>
+                </surface>     -->
             </collision>
             <inertial>
                 <origin rpy="0 0 0" xyz="${elbow_com_x} ${elbow_com_y} ${elbow_com_z}"/>
